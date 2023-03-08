@@ -1,0 +1,15 @@
+\contentsline {section}{\numberline {1}实验目的}{2}{}%
+\contentsline {section}{\numberline {2}实验原理}{2}{}%
+\contentsline {subsection}{\numberline {2.1}数列递推}{2}{}%
+\contentsline {subsection}{\numberline {2.2}二进制数取余}{2}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}$R_j \% q$}{2}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}$R_i \% p$}{2}{}%
+\contentsline {subsection}{\numberline {2.3}循环终止条件}{2}{}%
+\contentsline {section}{\numberline {3}实验步骤}{3}{}%
+\contentsline {subsection}{\numberline {3.1}初始化}{3}{}%
+\contentsline {subsection}{\numberline {3.2}循环}{3}{}%
+\contentsline {subsection}{\numberline {3.3}储存结果}{3}{}%
+\contentsline {subsection}{\numberline {3.4}结束}{4}{}%
+\contentsline {subsection}{\numberline {3.5}代码}{4}{}%
+\contentsline {section}{\numberline {4}实验结果}{5}{}%
+\contentsline {section}{\numberline {5}实验改进}{5}{}%

@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}实验目的}{2}{}%
+\contentsline {section}{\numberline {2}实验原理}{2}{}%
+\contentsline {subsection}{\numberline {2.1}实现if语句}{2}{}%
+\contentsline {subsection}{\numberline {2.2}判断当前重复子串长度及更新最大重复子串长度}{3}{}%
+\contentsline {section}{\numberline {3}实验步骤}{3}{}%
+\contentsline {subsection}{\numberline {3.1}初始化}{3}{}%
+\contentsline {subsection}{\numberline {3.2}特殊情况}{4}{}%
+\contentsline {subsection}{\numberline {3.3}循环}{4}{}%
+\contentsline {subsection}{\numberline {3.4}储存结果}{4}{}%
+\contentsline {subsection}{\numberline {3.5}结束}{5}{}%
+\contentsline {subsection}{\numberline {3.6}代码}{5}{}%
+\contentsline {section}{\numberline {4}实验结果}{6}{}%

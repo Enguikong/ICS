@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}实验目的}{2}{}%
+\contentsline {section}{\numberline {2}实验原理}{2}{}%
+\contentsline {subsection}{\numberline {2.1}判断A[15:0]第$i$位是否为1}{2}{}%
+\contentsline {subsection}{\numberline {2.2}对$F[15:0]$取模$p$}{2}{}%
+\contentsline {subsubsection}{\numberline {2.2.1}一般情况 ($2\leq p < 2^{16}$)}{2}{}%
+\contentsline {subsubsection}{\numberline {2.2.2}特殊情况 ($p=2^{k}, 2\leq k \leq 15$)}{2}{}%
+\contentsline {subsection}{\numberline {2.3}数列递推}{2}{}%
+\contentsline {subsection}{\numberline {2.4}求最大重复字符串长度}{2}{}%
+\contentsline {subsubsection}{\numberline {2.4.1}特殊情况$(N=0)$}{2}{}%
+\contentsline {subsubsection}{\numberline {2.4.2}更新当前最大重复字符串长度}{3}{}%
+\contentsline {subsubsection}{\numberline {2.4.3}判断当前重复字符串长度($N\neq 0$)}{3}{}%
+\contentsline {subsection}{\numberline {2.5}冒泡排序 (升序)}{3}{}%
+\contentsline {subsection}{\numberline {2.6}成绩分类}{3}{}%
+\contentsline {section}{\numberline {3}实验过程}{4}{}%
+\contentsline {subsection}{\numberline {3.1}特殊情况的判断}{4}{}%
+\contentsline {section}{\numberline {4}代码}{5}{}%
+\contentsline {section}{\numberline {5}实验结果}{9}{}%

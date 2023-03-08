@@ -1,0 +1,110 @@
+\documentclass{article}
+\usepackage{xeCJK,amsmath,geometry,graphicx,amssymb,zhnumber,booktabs,setspace,tasks,verbatim,amsthm,amsfonts,mathdots}
+\usepackage{listings,xcolor,float,caption,subfigure}
+\geometry{a4paper,scale=0.8}   
+\renewcommand\arraystretch{2}
+\title{ICS  HomeWork-5}
+\author{PB20000113孔浩宇}
+\begin{document}
+\maketitle
+\section*{T1}
+汇编器会将 AND 识别为操作码而不是标签，从而会产生错误。
+
+\section*{T2}
+.END伪操作告诉汇编器程序的结束位置。在此之后出现的任何字符串之后出现的任何字符串都将被忽略，
+不会被汇编器处理。它与HALT指令有很大的不同。
+\begin{enumerate}
+    \item [(1)].END不是一条指令，它不会被汇编器执行
+    \item [(2)].END不会使程序停止工作
+    \item [(3)].END只是一个标识来告诉汇编器在哪里停止汇编
+\end{enumerate}
+
+\section*{T3}
+可以。因为第一个.END伪操作之后的.END不会被汇编器识别。
+
+\section*{T4}
+\begin{enumerate}
+    \item [(a)]立即数\#30过大，超过5位补码立即数的表示范围。执行两次ADD\quad $R_3$,\ $R_3$,\ \#15。
+    \item [(b)]在汇编过程中会报错。
+\end{enumerate} 
+
+\section*{T5}
+不会出现错误，因为标签指向不同的地址。
+
+\section*{T6}
+\begin{enumerate}
+    \item [(a)]10924次
+    \item [(b)]仍然相同
+\end{enumerate}
+
+\section*{T7}
+\begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+    MUL     ST R7, SAVER7
+            ST R0, SAVER0
+            ST R1, SAVER1
+            ST R2, SAVER2
+            ST R5, SAVER5
+    AND     R2, R2, #0
+            JSR POP
+            ADD R1, R0, #0
+            JSR POP
+            ADD R1, R1, #0
+            BRz DONE
+    AGAIN   ADD R2, R2, R0
+            ADD R1, R1, #1
+            BRp AGAIN
+            DONE ADD R0, R2, #0
+            JSR PUSH
+            LD R7, SAVER7
+            LD R0, SAVER0
+            LD R1, SAVER1
+            LD R2, SAVER2
+            LD R5, SAVER5
+            RET
+\end{lstlisting}
+
+\section*{T8}
+\begin{enumerate}
+    \item [(a)]
+    \item [(b)]
+    \item [(c)]
+\end{enumerate}
+
+\section*{T9}
+PUSH
+\begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+    ADD R6, R6, #-2
+    STR R0, R6, #0
+    STR R1, R6, #1
+\end{lstlisting}
+
+POP
+\begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+    LDR R0, R6, #0
+    LDR R1, R6, #1
+    ADD R6, R6, #2
+\end{lstlisting}
+
+\section*{T10}
+\begin{enumerate}
+    \item [(a)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+        PUSH    A
+        PUSH    B
+        POP     B
+        PUSH    C
+        PUSH    D
+        POP     D
+        POP     C
+        POP     A
+    \end{lstlisting}
+    \item [(b)]不可能。因为D出栈时，ABC都在栈里，再出栈只能是C
+    \item [(c)]42
+\end{enumerate}
+
+\section*{T11}
+
+\end{document}
+\begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+
+\end{lstlisting}

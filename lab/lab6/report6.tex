@@ -1,0 +1,294 @@
+\documentclass[UTF8]{ctexart}
+
+\usepackage{amsmath}
+\usepackage{cases}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage{float}
+\geometry{a4paper}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage{listings,xcolor,caption,subfigure}
+\pagestyle{fancy}
+\fancyhf{}
+
+
+\title{ICS-lab6实验报告}
+\author{孔浩宇 PB20000113}
+\date{\today}
+\pagenumbering{arabic}
+
+\begin{document}
+
+\fancyhead[L]{孔浩宇}
+\fancyhead[C]{ICS-lab6实验报告}
+\fancyfoot[C]{\thepage}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{实验目的}
+    使用高级编程语言实现前四次实验的内容：
+    \begin{enumerate}
+        \item [1.]lab1: counting how many 1
+        \item [2.]lab2: a variant of the fibonacci sequence
+        \item [3.]lab3: longest duplicate substring
+        \item [4.]lab4: sort and count
+    \end{enumerate}
+
+
+\section{实验原理}
+    \subsection{判断A[15:0]第$i$位是否为1}
+        取$E_i = 2^{i} $,则
+            \[
+                E_i \& A[15:0] = E_i \cdot A[i]
+                \Rightarrow
+                \begin{cases}
+                    \ E_i \& A[15:0] == 1 &\Leftrightarrow\ A[i] == 1 \\
+                    \ E_i \& A[15:0] == 0 &\Leftrightarrow\ A[i] == 0 
+                \end{cases}
+            \]
+
+    \subsection{对$F[15:0]$取模$p$}
+        \subsubsection{一般情况 ($2\leq p < 2^{16}$)}
+            执行以下算法，取$f=F[15:0]$
+            \begin{enumerate}
+                \item [(1)]$f=f-p$，若$f<0$，跳转 (2).
+                \item [(2)]$f=f+p$，输出$f$即为$F\mod p$.
+            \end{enumerate}
+
+        \subsubsection{特殊情况 ($p=2^{k}, 2\leq k \leq 15$)}
+            \[
+                F[15:0] \mod p 
+                = F[k-1:0]
+                = F[15:0] \& (p-1)
+            \]
+    
+    \subsection{数列递推}
+    求$F_{N+1}$时，不妨记$F0$存储$F_{N-1}$，$F1$存储$F_{N}$，取$T0 = F0$，$T1 = F1$，
+    利用上文实验原理，使得
+    \[
+        T0 = T0 \mod p,\ 
+        T1 = T1 \mod q
+    \]
+    令$F0 = F1 = F_{N}$，再令$F1 = T0 + T1 = F_{N+1}$，继续执行即可得$F_{N+2}$等.
+       
+    \subsection{求最大重复字符串长度}
+    记Ml为当前重复字符串长度 (初始值为1)，Re为最大重复字符串长度 (初始值为1)，N为字符串总共长度，i为已判断的字符串数组最大下标
+        \subsubsection{特殊情况$(N=0)$}
+            若$N=0$，则令$Re = 0$ ，返回$Re$即为结果.
+
+        \subsubsection{更新当前最大重复字符串长度}
+            若$Ml > Re$，则令$Re = Ml$；否则不操作.
+    
+        \subsubsection{判断当前重复字符串长度($N\neq 0$)}
+            \begin{enumerate}
+                \item [(0)]若$i+1 \geq N$，更新当前最大重复字符串长度，$Ml=1$，跳转 (3)；否则跳转 (1)
+                \item [(1)]若$s[i] == s[i+1]$，则$Ml++$，跳转 (2) ； 否则更新当前最大重复字符串长度，$Ml=1$，跳转 (2)
+                \item [(2)]$i++$，跳转 (0)
+                \item [(3)]输出Re即为最终结果，结束程序
+            \end{enumerate}
+
+    \subsection{冒泡排序 (升序)}
+    对长度为16的整型数组score[\ ]进行升序的冒泡排序
+        \begin{lstlisting}[language={[ANSI]C},numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+            for( int16_t i = 0 ; i < 16 ; i++ ){
+                for( int16_t j = 0 ; j < 16 - i ; j++ ){
+                    if( score[j] > score[j+1] ){
+                        int16_t tem = score[j];
+                        score[j] = score[j+1];
+                        score[j+1] = tem;
+                    }
+                }
+            }
+        \end{lstlisting}
+    \subsection{成绩分类}
+    用A、B分别记录成绩分类为A、B的人数。
+    对前50\% 的成绩进行判断即可，若大于等于85且排在前四名 (25\%)，则$A++$，否则$B++$；
+    若大于等于75，则$B++$.
+    \begin{lstlisting}[language={[ANSI]C},numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+        for( int16_t i = 15 ; i > 7 ; i-- ){
+            if( score[i] >= 85 ){
+                if( i > 11 )
+                    A++;
+                else
+                    B++;
+            }
+            else if ( score[i] >= 75 ){
+                B++;
+            }
+        }
+    \end{lstlisting}
+    
+
+\section{实验过程}
+\subsection{特殊情况的判断}
+\begin{enumerate}
+    \item [(1)]对于lab3，首先要对$n=0$进行判断，其次在循环到末尾时，要对最后一串重复字符串的长度是否需要更新进行判断
+    \item [(2)]lab4中score的排序是在原数组上进行的
+\end{enumerate}
+
+
+
+\clearpage
+\section{代码}    
+\begin{lstlisting}[language={[ANSI]C},numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+    #include <cstdint>
+    #include <iostream>
+    #include <fstream>
+    #define MAXLEN 100
+    #ifndef LENGTH
+    #define LENGTH 3
+    #endif
+    
+    int16_t lab1(int16_t a, int16_t b) {
+        //initialize
+        int16_t A =a;
+        int16_t B =b;
+        int16_t Result =0;
+        int16_t I =1;
+        //calculation
+        for(int16_t i =0 ; i-B <0 ; i++ ){
+            if( (I & A) != 0 )
+                Result ++;
+            I = I + I;
+        }
+        //return value
+        return Result;
+    }
+    int16_t lab2(int16_t p, int16_t q, int16_t n) {
+        //initialize
+        int16_t Result = 0;
+        int16_t P = p - 1;
+        int16_t Q = q;
+        int16_t F0 = 0;     //F0 = F_{N-1}
+        int16_t F1 = 1;     //F1 = F_{N}
+        int16_t N = n;
+        //calculation
+        while (N!=0){
+            int16_t T0 = F0;
+            int16_t T1 = F1;
+            T0 = T0 & P;
+            for( ; T1 >=0 ; ){
+                T1 = T1 - Q;
+            }
+            T1 = T1 + Q;
+            F0 = F1;
+            F1 = T0 + T1;
+            N--;
+        }
+        Result = F1;
+        //return value
+        return Result;
+    }
+    int16_t lab3(int16_t n, char s[]) {
+        //initialize
+        int16_t Result = 0;
+        int16_t N = n;
+        int16_t Ml = 1;
+        int16_t i = 0;
+        char S0,S1;
+    
+        //calculation
+        while( N != 0 ){
+            S0 = s[i];
+            S1 = s[i+1];
+            if( S0 == S1 ){
+                Ml ++;
+            }
+            else{
+                if( Ml > Result)
+                    Result = Ml;
+                Ml = 1;
+            }
+            i++;
+            N--;
+        }
+        if( Ml > Result )
+            Result = Ml;
+        //return value
+        return Result;
+    }
+    void lab4(int16_t score[], int16_t *a, int16_t *b) {
+        //initialize
+        int16_t A = 0;
+        int16_t B = 0;
+        //calculation
+        for( int16_t i = 0 ; i < 16 ; i++ ){
+            for( int16_t j = 0 ; j < 16 - i ; j++ ){
+                if( score[j] > score[j+1] ){
+                    int16_t tem = score[j];
+                    score[j] = score[j+1];
+                    score[j+1] = tem;
+                }
+            }
+        }
+        for( int16_t i = 15 ; i > 7 ; i-- ){
+            if( score[i] >= 85 ){
+                if( i > 11 )
+                    A++;
+                else
+                    B++;
+            }
+            else if ( score[i] >= 75 ){
+                B++;
+            }
+        }
+        //return value
+        * a = A;
+        * b = B;
+    }
+    int main() {
+        std :: fstream file;
+        file.open("test.txt", std :: ios :: in);
+        //lab1
+        int16_t a = 0, b = 0;
+        for (int i = 0; i < LENGTH; ++i) {
+            file >> a >> b;
+            std :: cout << lab1(a, b) << std :: endl;
+        }
+    
+        //lab2
+        int16_t p = 0, q = 0, n = 0;
+        for (int i = 0; i < LENGTH; ++i) {
+            file >> p >> q >> n;
+            std :: cout << lab2(p, q, n) << std :: endl;
+        }
+    
+        //lab3
+        char s[MAXLEN];
+        for (int i = 0; i < LENGTH; ++i) {
+            file >> n >> s;
+            std :: cout << lab3(n, s) << std :: endl;
+        }
+    
+        //lab4
+        int16_t score[16];
+        for (int i = 0; i < LENGTH; ++i) {
+            for (int j = 0; j < 16; ++j) {
+                file >> score[j];
+            }
+            lab4(score, &a, &b);
+            for (int j = 0; j < 16; ++j) {
+                std :: cout << score[j] << " ";
+            }
+            std :: cout << std :: endl << a << " " << b << std :: endl;
+        }
+        file.close();
+        return 0;
+    }
+\end{lstlisting}
+
+\clearpage
+\section{实验结果}
+\begin{figure*}[htbp]
+    \centering
+    \includegraphics*[]{r.png}
+\end{figure*}
+
+\end{document}
+\begin{lstlisting}[language={[ANSI]C},numbers=left, numberstyle=\tiny, keywordstyle=\color{blue!70}, commentstyle=\color{red!50!green!50!blue!50}, frame=shadowbox, rulesepcolor=\color{red!20!green!20!blue!20}]
+   
+\end{lstlisting}

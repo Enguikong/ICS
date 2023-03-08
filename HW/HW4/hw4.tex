@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage{xeCJK,amsmath,geometry,graphicx,amssymb,zhnumber,booktabs,setspace,tasks,verbatim,amsthm,amsfonts,mathdots}
+\usepackage{listings,xcolor,float,caption,subfigure}
+\geometry{a4paper,scale=0.8}   
+\renewcommand\arraystretch{2}
+\title{ICS  HomeWork-4}
+\author{PB20000113孔浩宇}
+\begin{document}
+\maketitle
+\section*{T1}
+\begin{enumerate}
+    \item [(1)]ADD
+    \begin{enumerate}
+        \item []指令类型：运算
+        \item []寻址模式：寄存器寻址 (操作数1)
+        \item []寻址模式：寄存器寻址或立即数寻址 (操作数2)
+    \end{enumerate}
+    \item [(2)]JMP
+    \begin{enumerate}
+        \item []指令类型：控制
+        \item []寻址模式：寄存器寻址
+    \end{enumerate}
+    \item [(3)]LEA
+    \begin{enumerate}
+        \item []指令类型：数据搬移
+        \item []寻址模式：立即数寻址
+    \end{enumerate}
+    \item [(4)]LDR
+    \begin{enumerate}
+        \item []指令类型：数据搬移
+        \item []寻址模式：基址偏移寻址
+    \end{enumerate}
+    \item [(5)]NOT
+    \begin{enumerate}
+        \item []指令类型：运算
+        \item []寻址模式：寄存器寻址
+    \end{enumerate}
+\end{enumerate}
+
+\section*{T2}
+    \begin{enumerate}
+        \item [a.]至少需要8bits 宽度来表达地址
+        \item [b.]至少要留出6位来标识PC相对偏移
+        \item [c.]6.
+    \end{enumerate}
+
+\section*{T3}
+\begin{enumerate}
+    \item [a.]$0101\ 011\ 010\ 1\ 00100$. (AND\ $R_3$,\ $R_2$,\ \# 4)
+    \item [b.]$0101\ 011\ 010\ 1\ 01100$. (AND\ $R_3$,\ $R_2$,\ \# 12)
+    \item [c.]$1001\ 011\ 010\ \ 111111$. (NOT\ $R_3$,\ $R_2$)
+    \item [d.]不能，因为AND中立即数仅有5位，如果要实现判断机器6是否为busy需要立即数为$100\ 0000$,无法实现。
+\end{enumerate}
+
+\section*{T4}
+    \begin{enumerate}
+        \item [a.]指令a不可以，在执行节拍执行了加法，虽然是加0.
+        \item [b.]指令b不可以，会导致PC进行跳转，影响程序的正常执行。
+        \item [c.]指令c可以，当nzp均0时，BR指令执行节拍什么都不做，也不影响程序的执行。
+    \end{enumerate}
+    
+\section*{T5}
+\begin{enumerate}
+    \item [a.]$0001\ 011\ 010\ 1\ 00000\ $ (ADD\ $R_3,\ R_2,\ \# 0$)
+    \item [b.]
+    \begin{align*}
+        &1001\ 011\ 011\ 111111\  (\mbox{NOT}\ R_3,\ R_3)\\
+        &0001\ 011\ 011\ 1\ 00001\ (\mbox{ADD}\ R_3,\ R_3,\ \# 1)\\
+        &0001\ 001\ 010\ 0\ 00011\ (\mbox{ADD}\ R_1,\ R_2,\ R_3)
+    \end{align*}
+    \item [c.]$0001\ 001\ 001\ 1\ 00000\ (\mbox{ADD}\ R_1,\ R_1,\ \# 0)$
+    \item [d.]不能，无法使寄存器同时为负和零
+    \item [e.]$0101\ 010\ 010\ 1\ 00000$\ (AND\ $R_2$,\ $R_2$,\ \# 0)
+\end{enumerate}
+
+\section*{T6}
+\begin{enumerate}
+    \item [(1):]$1001\ 100\ 001\ 111 111$
+    \item [(2):]$0101\ 100\ 100\ 0\ 00\ 010$
+    \item [(3):]$1001\ 101\ 010\ 111 111$
+    \item [(4):]$0001\ 101\ 101\ 0\ 00\ 001$
+    \item [(5):]$1101\ 011\ 100\ 0\ 00\ 101$
+\end{enumerate}
+
+\section*{T7}
+\begin{enumerate}
+    \item [$R_1$:]0x 3121
+    \item [$R_2$:]0x 4566
+    \item [$R_3$:]0xabcd
+    \item [$R_4$:]0xabcd
+\end{enumerate}
+
+\section*{T8}
+    \begin{enumerate}
+        \item [a.]LD:2次；不需要执行节拍
+        \item [b.]LDI:3次；不需要执行节拍
+        \item [c.]LEA:1次；不需要取执行节拍
+    \end{enumerate}
+
+\section*{T9}
+    $R_2$:0x 1482
+
+\section*{T10}
+    $R_0$的低8位里有5位为1.
+
+\section*{T11}
+    MUL 最有必要，因为其他指令都可以用已有的指令实现。
+    \begin{enumerate}
+        \item [a.]MOVE:可以用ADD立即数0或者AND来实现。
+        \item [b.]NAND:可以用ADD与NOT连续两条指令来实现。
+        \item [c.]SHFL:可以用 MUL$\ R_i,\ R_j,\ R_k (R_k=100)$。
+    \end{enumerate}
+
+\section*{T12}
+
+\end{document}
+ 

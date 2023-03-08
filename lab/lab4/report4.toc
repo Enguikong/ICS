@@ -1,0 +1,12 @@
+\contentsline {section}{\numberline {1}实验目的}{2}{}%
+\contentsline {section}{\numberline {2}实验原理}{2}{}%
+\contentsline {subsection}{\numberline {2.1}实现if语句}{2}{}%
+\contentsline {subsection}{\numberline {2.2}数据交换}{3}{}%
+\contentsline {section}{\numberline {3}实验步骤}{3}{}%
+\contentsline {subsection}{\numberline {3.1}初始化}{3}{}%
+\contentsline {subsection}{\numberline {3.2}数据搬迁}{4}{}%
+\contentsline {subsection}{\numberline {3.3}冒泡排序}{4}{}%
+\contentsline {subsection}{\numberline {3.4}成绩分类}{5}{}%
+\contentsline {subsection}{\numberline {3.5}结束}{5}{}%
+\contentsline {subsection}{\numberline {3.6}代码}{6}{}%
+\contentsline {section}{\numberline {4}实验结果}{8}{}%

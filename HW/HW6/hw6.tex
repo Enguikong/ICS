@@ -1,0 +1,160 @@
+\documentclass{article}
+\usepackage{xeCJK,amsmath,geometry,graphicx,amssymb,zhnumber,booktabs,setspace,tasks,verbatim,amsthm,amsfonts,mathdots}
+\usepackage{listings,xcolor,float,caption,subfigure}
+\geometry{a4paper,scale=0.8}   
+\renewcommand\arraystretch{2}
+\title{ICS  HomeWork-6}
+\author{PB20000113孔浩宇}
+\begin{document}
+\maketitle
+\section*{T1}
+\begin{enumerate}
+    \item [(a)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+            SaveRegisters   ST  R3, SAVER3 
+                            ST  R4, SAVER4
+                            ST  R5, SAVER5 
+                            ST  R6, SAVER6
+                            RET 
+        RestoreRegisters    LD  R3, SAVER3 
+                            LD  R4, SAVER4
+                            LD  R5, SAVER5 
+                            LD  R6, SAVER6 
+                            RET
+        SAVER3 .BLKW 1
+        SAVER4 .BLKW 1
+        SAVER5 .BLKW 1
+        SAVER6 .BLKW 1
+    \end{lstlisting}
+    \item [(b)]
+\end{enumerate}
+
+\section*{T2}
+\begin{enumerate}
+    \item [(a)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+        CLEAR   ST  R2, TEMP
+                LEA R2, MASKS
+                ADD R2, R1, R2
+                LDR R2, R2, #0
+                NOT R2, R2
+                AND R0, R2, R0
+                LD  R2, TEMP
+                RET
+        TEMP    .BLKW #1
+    \end{lstlisting}
+
+    \item [(b)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+        SET     ST  R2, TEMP
+                LEA R2, MASKS
+                ADD R2, R1, R2
+                LDR R2, R2, #0
+                NOT R2, R2
+                NOT R0, R0
+                AND R0, R2, R0
+                NOT R0, R0
+                LD  R2, TEMP
+                RET
+	    TEMP    .BLKW #1
+    \end{lstlisting}
+\end{enumerate}
+
+\section*{T3}
+\begin{enumerate}
+    \item [(a)]16.
+    \item [(b)]x400F.
+    \item [(c)]程序执行后，C中保存的值为从B中保存的内存位置开始的四个连续值的平均值。
+\end{enumerate}
+
+
+
+\section*{T4}
+\begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+    FACT	ST  R1, SAVE_R1
+            ADD R1, R0, #0
+            BRnp SKIP
+            ADD R1, R1, #1
+            BRnzp DONE
+    SKIP	ADD R0, R0, #-1
+            BRz DONE
+    AGAIN	MUL R1, R1, R0
+            ADD R0, R0, #-1     ; R0 gets next integer for MUL
+            BRnp AGAIN
+    DONE	ADD R0, R1, #0      ; Move n! to R0
+            LD  R1, SAVER1
+            RET
+    SAVE_R1	.BLKW 1
+\end{lstlisting}
+
+
+\section*{T5}
+\begin{enumerate}
+    \item [(a)]若KBSR[15]为0，则在KBDR中的数据为已读的，不检查KBSR的话程序会再次读入同一个字符
+    \item [(b)]若KBSR[15]为1，则用户此前输入的存储在KBDR中的未读数据会丢失
+    \item [(c)]第二个更可能发生，因为程序读取一般不会连续读取，键盘输入可能连续输入
+\end{enumerate}
+
+
+\section*{T6}
+对于合并的状态状态寄存器，检查指定的状态位是否为1需要更多的指令，我认为是个不好的设计。
+
+
+\section*{T7}
+\begin{enumerate}
+    \item [(a)]TRAP向量是8位宽。LC-3可以实现256个TRAP例程
+    \item [(b)]若IR中已存入TRAP，则只有1次；否则2次
+\end{enumerate}
+
+
+\section*{T8}
+输出为FUN。
+
+
+\section*{T9}
+如果A中的值是质数，则内存位置RESULT中存入1;否则，RESULT中存入0。
+
+
+\section*{T10}
+\begin{enumerate}
+    \item [(a)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+        ADD R1, R1, #1
+    \end{lstlisting}
+
+    \item [(b)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+        TRAP x25
+    \end{lstlisting}
+
+    \item [(c)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+        ADD R0, R0, #5
+    \end{lstlisting}
+
+    \item [(d)]
+    \begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+        BRzp K
+    \end{lstlisting}
+\end{enumerate}
+
+\section*{T11}
+\begin{enumerate}
+    \item [(a)]键盘中断启用，数字2重复打印。
+    \item [(b)]在屏幕上将键盘输入的字符显示两次。
+    \item [(c)]先是打印2，然后键盘输入的字符显示2次或3次，之后连续打印2。
+    \item [(d)]如果程序在指令LD\ R0,\ B执行后中断，则显示3次；否则2次。
+\end{enumerate}
+
+
+\section*{T12}
+\begin{enumerate}
+    \item [(1)]privilege mode 和状态码没有恢复。
+    \item [(2)]由于R7中的值用于保存子程序结束后的返回地址，而不是保存在堆栈上的，因此程序很可能无法回到正确的位置。
+\end{enumerate}
+
+\end{document}
+
+\begin{lstlisting}[basicstyle=\ttfamily,language={[x86masm]Assembler}]
+
+\end{lstlisting}
